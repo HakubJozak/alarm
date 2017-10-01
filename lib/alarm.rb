@@ -3,5 +3,6 @@ require "alarm/cli"
 require "alarm/time_of_day"
 
 module Alarm
-  # Your code goes here...
+  class Error < ::RuntimeError
+  end
 end

@@ -4,5 +4,4 @@ require "bundler/setup"
 require "alarm"
 
 
-Alarm::CLI.new(ARGV).run
-
+Alarm::Cli.new(ARGV).run
