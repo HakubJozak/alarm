@@ -5,6 +5,7 @@ module Alarm
     def initialize
       @options = {
         identifier: 'alarm',
+        user: 'jakub',
         cut: 0
       }
     end
@@ -22,11 +23,15 @@ module Alarm
 
     private
 
-      def alarm_cron_string(time)
-         %{every '#{time.to_cron}' do
-             command "notify-send 'Hey!'"
-           end}        
-      end
+    def alarm_command
+      'ogg123 "/home/jakub/Music/alarm.ogg"'
+    end
+
+    def alarm_cron_string(time)
+      %{ every '#{time.to_cron}' do
+          command '#{alarm_command}'
+         end }        
+    end
     
     # public :write_crontab
     # public :updated_crontab    
