@@ -1,14 +1,17 @@
 class TimeOfDay
-  attr_accessor :hour, :minute, :second
+  attr_accessor :hour, :minute
 
-  def initialize(hour, minute = 0, second = 0)
+  def initialize(hour, minute = 0)
     @hour = hour
     @minute = minute || 0
-    @second = second || 0
   end
 
-  def inspect
-    "%.2d:%.2d:%.2d" % [@hour,@minute,@second]
+  def to_s
+    "%.2d:%.2d" % [ @hour, @minute]
+  end
+
+  def to_cron
+    "#{@minute} #{@hour} * * *"
   end
 
   def self.parse(str)
@@ -17,10 +20,9 @@ class TimeOfDay
     if str =~ /(\d{1,2})#{optional}#{optional}/
       hour   = $1.to_i
       minute = $2.to_i unless $2.nil?
-      second = $3.to_i unless $3.nil?
-      TimeOfDay.new(hour,minute,second)
+      TimeOfDay.new(hour,minute)
     else
-      raise Alarm::Error.new("Time format is HH:MM:SS. Seconds and minutes are optional.")
+      raise Alarm::Error.new("Time format is HH:MM. Minutes are optional.")
     end
   end
 end
