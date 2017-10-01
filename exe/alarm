@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "alarm"
+
+
+Alarm::CLI.new(ARGV).run
+
