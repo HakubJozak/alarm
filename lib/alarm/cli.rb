@@ -18,10 +18,16 @@ module Alarm
         time = TimeOfDay.parse(@command || '')
         puts "Alarm set for #{time}."
         @scheduler.set_alarm(time)
-
       end
     rescue Alarm::Error
       puts $!.message
     end
+  end
+
+  private
+
+
+  def rtcwake
+    "rtcwake --date +300min -m no -u"
   end
 end

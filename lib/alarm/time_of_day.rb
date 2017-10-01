@@ -14,6 +14,12 @@ class TimeOfDay
     "#{@minute} #{@hour} * * *"
   end
 
+  def to_rtcwake
+    # "YYYY-MM-DD hh:mm"
+    # change to TOMORROW!
+    "#{Date.today.to_s} #{time.to_s}"    
+  end
+
   def self.parse(str)
     optional = '(?::(\d{1,2}))?'
 

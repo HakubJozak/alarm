@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 IFS=$'\n\t'
-set -vx
+set -x
 
-bundle install
 
-# Do any other automated setup that you need to do here
+echo 'Alarm needs rtcwake needs to wake up the computer'
+echo 'at a given time and rtcwake needs access to /dev/rtc0'
+
+# TODO: add user to 'adm' group
+
+sudo chgrp adm  /dev/rtc0
+sudo chmod u+rx /dev/rtc0
+ls -la /dev/rtc0
+

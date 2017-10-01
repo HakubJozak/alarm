@@ -2,6 +2,8 @@ require 'whenever'
 
 module Alarm
   class Scheduler < ::Whenever::CommandLine
+    # To overcome command line options checks
+    # done in parent.
     def initialize
       @options = {
         identifier: 'alarm',
