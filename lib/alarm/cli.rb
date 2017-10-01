@@ -15,19 +15,24 @@ module Alarm
         @scheduler.cancel_alarm
         puts "Alarm cancelled."
       else
-        time = TimeOfDay.parse(@command || '')
-        puts "Alarm set for #{time}."
-        @scheduler.set_alarm(time)
+        moment = TimeOfDay.parse(@command || '')
+        wake_up_computer_before_alarm(moment)
+        @scheduler.set_alarm(moment)
+        puts "Alarm set for #{moment}."
       end
     rescue Alarm::Error
       puts $!.message
     end
-  end
 
-  private
+    private
 
+    def wake_up_computer_before_alarm(moment)
+      a_minute_earlier = moment - 1.minute
+      str = a_minute_earlier.strftime("%Y-%m-%d %H:%M")
+      cmd = "rtcwake -v --date #{str} -m no -u"
+      puts cmd
+      system cmd
+    end    
 
-  def rtcwake
-    "rtcwake --date +300min -m no -u"
   end
 end

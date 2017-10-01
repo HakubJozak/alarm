@@ -14,10 +14,21 @@ class TimeOfDay
     "#{@minute} #{@hour} * * *"
   end
 
+  def to_time
+    Time.new(day.year, day.month, day.day, @hour, @minute)
+  end
+
+  def -(seconds)
+    r = to_time - seconds
+  end
+
   def to_rtcwake
-    # "YYYY-MM-DD hh:mm"
-    # change to TOMORROW!
-    "#{Date.today.to_s} #{time.to_s}"    
+    "#{day.to_s} #{a_minute_earlier}"
+  end
+
+  def day
+    # change to TOMORROW! (just for testing)
+    Date.today + 1
   end
 
   def self.parse(str)
